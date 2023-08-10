@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-
+// setting states
   const [apiError, setApiError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +15,7 @@ export default function Login() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
+      // sending request to server
       const response = await axios.post("http://127.0.0.1:8000/api/login/", data);
 
       // to save both access and refresh tokens
