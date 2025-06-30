@@ -12,7 +12,7 @@ function NavBar() {
     <div className="bg-[#7E33E0] text-white shadow-md">
       <div className="flex justify-between items-center px-4 h-[56px]">
         
-       
+       // Logo section of sentiment analysis
         <div className="flex items-center gap-2">
           <img src="/emotion_img.png" alt="Logo" className="h-8 w-auto" />
           <span className="text-lg font-semibold ">Sentimental Analyzer</span>
@@ -36,6 +36,7 @@ function NavBar() {
                 <IoMail /> Contact Us
               </Link>
             </li>
+            // login section of the page
             <li>
               <Link to="/login" className="flex items-center gap-2 hover:underline">
                 <RiLoginBoxFill /> Login
