@@ -6,6 +6,8 @@ import Contact from './Pages/Contact'
 import ErrorPage from './Pages/ErrorPage'
 import Login from "./Pages/Login"
 import Signup from './Components/Signup'
+// Defines all application routes and maps them to their respective components
+
 function Path() {
   return (
     <>
