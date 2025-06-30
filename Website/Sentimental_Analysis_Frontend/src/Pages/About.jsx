@@ -5,6 +5,7 @@ import Footer from '../Components/Footer'
 function About() {
   return (
     <>
+    // Main sentiment
    <div className="bg-gradient-to-b from-purple-50 to-white min-h-screen py-10 px-6 sm:px-10">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-purple-700 mb-6">About Sentiment Analysis</h1>
@@ -15,6 +16,7 @@ function About() {
 
           <div className="grid gap-6 md:grid-cols-3 text-left">
             {/* Positive */}
+            // positive sentiment 
             <div className="bg-green-50 border border-green-200 rounded-xl p-6 shadow hover:shadow-md transition-all">
               <h2 className="text-xl font-semibold text-green-700 mb-2">😊 Positive Sentiment</h2>
               <p className="text-gray-700">
@@ -25,6 +27,7 @@ function About() {
             </div>
 
             {/* Negative */}
+            //negative sentiment
             <div className="bg-red-50 border border-red-200 rounded-xl p-6 shadow hover:shadow-md transition-all">
               <h2 className="text-xl font-semibold text-red-700 mb-2">😠 Negative Sentiment</h2>
               <p className="text-gray-700">
@@ -35,6 +38,7 @@ function About() {
             </div>
 
             {/* Neutral */}
+            // neutral sentiment
             <div className="bg-gray-100 border border-gray-200 rounded-xl p-6 shadow hover:shadow-md transition-all">
               <h2 className="text-xl font-semibold text-gray-800 mb-2">😐 Neutral Sentiment</h2>
               <p className="text-gray-700">
@@ -55,5 +59,6 @@ function About() {
     </>
   )
 }
+// contains three sections positive, negative and neutral and upper secction contains main sentiment 
 
 export default About
