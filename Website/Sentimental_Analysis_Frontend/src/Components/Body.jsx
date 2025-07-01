@@ -90,8 +90,10 @@ function Body() {
                             ? "text-green-700"
                             : sentiment.includes("Negative")
                             ? "text-red-700"
+                            : sentiment.includes("Neutral")
+                            ? "text-blue-600"
                             : sentiment === "कृपया नेपाली वाक्य लेख्नुहोस्।"
-                            ? "text-red-600"
+                            ? " "
                             : "text-red-600"
                         }`}
           >
