@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import bg from "../assets/backgroundimg.jpg";
 import Banner from "./Banner";
 
@@ -14,18 +15,12 @@ function Body() {
     setSentiment("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/predict/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: inputText }),
+      const response = await axios.post("http://127.0.0.1:8000/api/sentiment/", {
+        sentence: inputText,
       });
 
-      const data = await response.json();
-
-      if (data.sentiment) {
-        setSentiment(data.sentiment); // expected to be: Positive 😊 / Negative 😞 / Neutral 😐
+      if (response.data && response.data.sentiment) {
+        setSentiment(response.data.sentiment);
       } else {
         setSentiment("Unable to classify sentiment");
       }
@@ -46,15 +41,14 @@ function Body() {
         style={{ backgroundImage: `url(${bg})` }}
       >
         <input
-  type="text"
-  className="w-full max-w-xl px-4 py-3 border rounded-md outline-none mb-6
+          type="text"
+          className="w-full max-w-xl px-4 py-3 border rounded-md outline-none mb-6
              bg-white shadow-lg opacity-70 focus:opacity-100 hover:opacity-100
              focus:ring-2 focus:ring-blue-500 transition duration-300 text-base sm:text-lg"
-  placeholder="नेपाली वाक्य लेख्नुहोस्..."
-  value={inputText}
-  onChange={(e) => setInputText(e.target.value)}
-/>
-
+          placeholder="नेपाली वाक्य लेख्नुहोस्..."
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+        />
 
         <button
           onClick={checkSentiment}
