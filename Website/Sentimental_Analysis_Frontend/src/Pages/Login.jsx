@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form"
+import { Link } from "react-router-dom";
 export default function Login() {
    const {
     register,
@@ -50,13 +51,13 @@ export default function Login() {
 <div className="mb-4">
   <label htmlFor="username" className="block mb-1">Username</label>
   <input type="text" id="username" className="w-full px-3 py-2 border rounded-md outline-none" placeholder="Username"  {...register("username",{required:"Username is required"})}/>
-  {errors.username && <span  className="text-red-500 text-sm">{errors.message}</span>}
+  {errors.username && <span  className="text-red-500 text-sm">{errors.username.message}</span>}
  
 </div>
 <div className="mb-4">
   <label htmlFor="password" className="block mb-1">Password</label>
   <input type="password" id="password" className="w-full px-3 py-2 border rounded-md outline-none" placeholder="Password" {...register("password",{required:"Password is required"})}/>
-  {errors.password && <span  className="text-red-500 text-sm">{errors.message}</span>}
+  {errors.password && <span  className="text-red-500 text-sm">{errors.password.message}</span>}
  
 </div>
 <div className="mt-4 flex justify-between items-center">
@@ -69,7 +70,7 @@ export default function Login() {
             <p className="text-sm">
              Not registered?{' '}
               <span className="text-blue-500 underline cursor-pointer">
-                Signup
+                <Link to="/signup">Signup</Link>
               </span>
             </p>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
+import { Link } from 'react-router-dom'
 function Signup() {
   const {
     register,
@@ -112,7 +113,7 @@ function Signup() {
             <p className="text-sm">
               Already Have Account?{' '}
               <span className="text-blue-500 underline cursor-pointer">
-                Login
+              <Link to={"/login"}>Login</Link>  
               </span>
             </p>
           </div>
