@@ -7,10 +7,20 @@ function Body() {
   const [inputText, setInputText] = useState("");
   const [sentiment, setSentiment] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const isNepaliText = (text) => {
+    const nepaliRegex = /^[\u0900-\u097F\s]+$/; // Devanagari range + spaces
+    return nepaliRegex.test(text.trim());
+  };
 
   const checkSentiment = async () => {
-    if (!inputText.trim()) return;
+    if (!inputText.trim() || !isNepaliText(inputText)) {
+      setError("Please Enter Nepali Text");
+      return;
+    }
 
+    setError("");
     setLoading(true);
     setSentiment("");
 
@@ -30,7 +40,6 @@ function Body() {
     }
 
     setLoading(false);
-    setInputText("");
   };
 
   return (
@@ -42,20 +51,33 @@ function Body() {
       >
         <input
           type="text"
-          className="w-full max-w-xl px-4 py-3 border rounded-md outline-none mb-6
-             bg-white shadow-lg opacity-70 focus:opacity-100 hover:opacity-100
-             focus:ring-2 focus:ring-blue-500 transition duration-300 text-base sm:text-lg"
+          className="w-full max-w-xl px-4 py-3 border rounded-md outline-none mb-2
+            bg-white shadow-lg opacity-70 focus:opacity-100 hover:opacity-100
+            focus:ring-2 focus:ring-blue-500 transition duration-300 text-base sm:text-lg"
           placeholder="नेपाली वाक्य लेख्नुहोस्..."
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          onChange={(e) => {
+            setInputText(e.target.value);
+            if (e.target.value && !isNepaliText(e.target.value)) {
+              setError("Please Enter Nepali text");
+            } else {
+              setError("");
+            }
+          }}
         />
+
+        {error && (
+          <p className="text-red-600 font-semibold mb-2 text-sm sm:text-base">
+            {error}
+          </p>
+        )}
 
         <button
           onClick={checkSentiment}
           className="w-42 max-w-xl bg-blue-700 hover:bg-blue-800 focus:bg-blue-900
-                     text-white font-semibold px-5 py-2.5 rounded-md mb-6 shadow-lg
-                     transition-colors duration-300 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={!inputText.trim() || loading}
+            text-white font-semibold px-5 py-2.5 rounded-md mb-6 shadow-lg
+            transition-colors duration-300 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={!inputText.trim() || loading || !!error}
         >
           {loading ? "Analyzing..." : "Check Sentiment"}
         </button>
@@ -63,13 +85,13 @@ function Body() {
         {sentiment && (
           <p
             className={`w-full max-w-xl text-center font-extrabold text-xl sm:text-2xl
-                        ${
-                          sentiment.includes("Positive")
-                            ? "text-green-700"
-                            : sentiment.includes("Negative")
-                            ? "text-red-700"
-                            : "text-black"
-                        }`}
+              ${
+                sentiment.includes("Positive")
+                  ? "text-green-700"
+                  : sentiment.includes("Negative")
+                  ? "text-red-700"
+                  : "text-black"
+              }`}
           >
             {sentiment}
           </p>

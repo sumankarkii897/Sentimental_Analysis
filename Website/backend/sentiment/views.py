@@ -33,6 +33,8 @@ def sentiment_api(request):
             pred = model.predict(vect)
             sentiment_map = {-1: "Negative", 0: "Neutral", 1: "Positive"}
             sentiment = sentiment_map.get(pred[0])
+            print(f"Sentence {sentence}")
+            print(f"Sentiment: {sentiment}")
             return JsonResponse({'sentiment': sentiment})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
