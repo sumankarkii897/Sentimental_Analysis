@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import bg from "../assets/backgroundimg.jpg";
@@ -11,13 +12,30 @@ function Body() {
   const checkSentiment = async () => {
     if (!inputText.trim()) return;
 
+    //  Only allowing Nepali text
+    const nepaliRegex = /[\u0900-\u097F]/;
+    if (!nepaliRegex.test(inputText)) {
+      setSentiment("कृपया नेपाली वाक्य लेख्नुहोस्।");
+      return;
+    }
+
     setLoading(true);
     setSentiment("");
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/sentiment/", {
-        sentence: inputText,
-      });
+      const token = localStorage.getItem("access");
+      if (!token) {
+        setSentiment("Login required to check sentiment.");
+        setLoading(false);
+        return;
+      }
+
+      //  Send JWT token in Authorization header
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/sentiment/",
+        { sentence: inputText },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       if (response.data && response.data.sentiment) {
         setSentiment(response.data.sentiment);
@@ -26,11 +44,14 @@ function Body() {
       }
     } catch (error) {
       console.error("Error fetching sentiment:", error);
-      setSentiment("Error: Could not connect to server.");
+      setSentiment(
+        error.response?.status === 401
+          ? "Unauthorized. Please login again."
+          : "Error: Could not connect to server."
+      );
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-    setInputText("");
   };
 
   return (
@@ -42,9 +63,10 @@ function Body() {
       >
         <input
           type="text"
-          className="w-full max-w-xl px-4 py-3 border rounded-md outline-none mb-6
+          className={`w-full max-w-xl px-4 py-3 border rounded-md outline-none mb-6
              bg-white shadow-lg opacity-70 focus:opacity-100 hover:opacity-100
-             focus:ring-2 focus:ring-blue-500 transition duration-300 text-base sm:text-lg"
+             focus:ring-2 focus:ring-blue-500 transition duration-300 text-base sm:text-lg
+             ${sentiment === "कृपया नेपाली वाक्य लेख्नुहोस्।" ? "border-red-500" : "border-gray-300"}`}
           placeholder="नेपाली वाक्य लेख्नुहोस्..."
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -68,7 +90,9 @@ function Body() {
                             ? "text-green-700"
                             : sentiment.includes("Negative")
                             ? "text-red-700"
-                            : "text-black"
+                            : sentiment === "कृपया नेपाली वाक्य लेख्नुहोस्।"
+                            ? "text-red-600"
+                            : "text-red-600"
                         }`}
           >
             {sentiment}

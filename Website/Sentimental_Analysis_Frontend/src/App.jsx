@@ -1,13 +1,16 @@
 import { useState } from 'react'
-import Login from './Components/Login'
+
 import Signup from './Components/Signup'
 import Header from './Components/Header'
 import Banner from './Components/Banner'
 import Body from './Components/Body'
-import Footer from './Components/Footer'
+import Footer from './Components/Footer';
 import Home from './Pages/Home'
-import Path from './Path'
-import NavBar from './Components/NavBar'
+import Path from './Path';
+import NavBar from './Components/NavBar';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
 
@@ -17,12 +20,8 @@ function App() {
     <NavBar/>
     <Path/>
     <Footer/>
-       {/* <Login/> */}
-       {/* <Banner/> */}
-       {/* <Body/> */}
-       {/* <Home/> */}
-       {/* <Signup/> */}
-      {/* <Header/> */}
+   
+    
     </>
   )
 }
