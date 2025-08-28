@@ -5,18 +5,18 @@ function Contact() {
    const teamMembers = [
     {
       name: 'Prasiddha Karki',
-      phone: '+977-9812345678',
-      email: 'prasiddha@gmail.com',
+      phone: '+977-9861286763',
+      email: 'prashidkarki321@gmail.com',
     },
     {
       name: 'Sabin Sapkota',
-      phone: '+977-9823456789',
-      email: 'sabin@gmail.com',
+      phone: '+977-9813186393',
+      email: 'sabinsapkota239@gmail.com',
     },
     {
       name: 'Suman Karki',
-      phone: '+977-9834567890',
-      email: 'suman@gmail.com',
+      phone: '+977-9863439766',
+      email: 'sumankarkii897@gmail.com',
     },
   ];
   return (
