@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+// importing components
 import Signup from './Components/Signup'
 import Header from './Components/Header'
 import Banner from './Components/Banner'
